@@ -2,7 +2,6 @@
 
 > **“AI that gives you a mission, then gets out of your way.”**
 
-Built for **Hacktoberfest 2026 Week 1: DEV “Touch Grass” Challenge**  
 Powered by **GPT-OSS 20B (Groq)** • **ElevenLabs** • **Flask** • **Render**
 
 ---
@@ -21,11 +20,8 @@ The screen immediately switches to a minimal, anti-screen active mode that promp
 
 ---
 
-## 🎯 Hacktoberfest 2026 Theme: "Touch Grass"
+## 🎯 Core Philosophy: The Anti-Screen Mission Generator
 
-The prompt for Week 1 challenges developers to build software that encourages physical outdoor presence, mental clarity, and genuine interaction with the physical world.
-
-GrassQuest directly embodies this challenge:
 1. **Open-Weight AI at the Core:** The open-weight model (`openai/gpt-oss-20b` via Groq) generates context-aware, creative, and strictly safe outdoor quests tailored to user mood (Bored, Stressed, Low Energy, Curious, Energetic, Social).
 2. **Not an AI Wrapper or Chatbot:** The AI does not converse or linger. It produces a clear, achievable physical objective, validates its JSON schema, and disappears.
 3. **Voice as an Off-Screen Enabler (ElevenLabs):** Spoken audio provides the briefing so you don't need to read cards while crossing the street.
@@ -94,7 +90,7 @@ GrassQuest relies on open-weight foundation models (`openai/gpt-oss-20b`) hosted
 
 ## 🎙️ Why ElevenLabs?
 
-In traditional apps, users must stare at instructions, read bullet points, and check their screens at every street corner. That completely defeats the purpose of "touching grass."
+In traditional apps, users must stare at instructions, read bullet points, and check their screens at every street corner. That completely defeats the purpose of being outside.
 
 ElevenLabs solves this by turning the mission brief into an authentic, natural spoken voice:
 - Users hear their mission through their earbuds or phone speaker.
@@ -137,6 +133,7 @@ grassquest/
 ├── Procfile                    # Process definition for Render / PaaS
 ├── render.yaml                 # Render Blueprint configuration
 ├── pytest.ini                  # Pytest configuration
+├── pyrightconfig.json          # Language server configuration
 ├── .env.example                # Template for environment variables
 ├── .gitignore                  # Git ignore rules for virtualenv & secrets
 ├── README.md                   # Project documentation
@@ -202,7 +199,7 @@ Edit `.env` with your API keys:
 GROQ_API_KEY=your_groq_api_key_here
 GROQ_MODEL=openai/gpt-oss-20b
 
-# ElevenLabs API Key (get through Hacktoberfest Creator Perks or https://elevenlabs.io)
+# ElevenLabs API Key (get at https://elevenlabs.io)
 ELEVENLABS_API_KEY=your_elevenlabs_api_key_here
 ELEVENLABS_VOICE_ID=21m00Tcm4TlvDq8ikWAM
 
@@ -286,12 +283,8 @@ Deploying GrassQuest to Render takes less than 2 minutes:
 
 ---
 
-## 🌟 Hacktoberfest 2026 Submission Summary
+## 📄 License
 
-- **Challenge:** DEV Hacktoberfest 2026 Week 1 — "Touch Grass"
-- **Open-Weight AI Model:** `openai/gpt-oss-20b` via Groq
-- **Audio Voice Synthesis:** ElevenLabs (`eleven_turbo_v2_5`)
-- **Hosting Platform:** Render
-- **License:** MIT License
+This project is licensed under the MIT License - see the [LICENSE](file:///Users/harshu/Desktop/GrassQuest/LICENSE) file for details.
 
 *“The best AI application is the one that convinces you to close your laptop and step outside.”* 🌿

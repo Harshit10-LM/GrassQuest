@@ -162,11 +162,6 @@ body {
   letter-spacing: 0.04em;
 }
 
-.hacktoberfest-tag {
-  background: rgba(245, 158, 11, 0.12);
-  color: #fbbf24;
-  border: 1px solid rgba(245, 158, 11, 0.25);
-}
 
 .btn-icon {
   background: var(--bg-card);

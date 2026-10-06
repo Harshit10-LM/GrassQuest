@@ -1,6 +1,5 @@
 """GrassQuest Flask Application.
 "AI that gives you a mission, then gets out of your way."
-Hacktoberfest 2026 Week 1 (Touch Grass) Project.
 """
 
 import io
@@ -57,7 +56,6 @@ def health():
         "app": "GrassQuest",
         "tagline": "AI that gives you a mission, then gets out of your way.",
         "version": "1.0.0",
-        "hacktoberfest": "2026 Week 1 - Touch Grass",
         "ai": {
             "model": model_name,
             "provider": "Groq",
