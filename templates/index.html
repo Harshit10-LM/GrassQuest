@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <meta name="theme-color" content="#090d0b">
+  <meta name="description" content="GrassQuest: AI that gives you a mission, then gets out of your way. Open-weight AI generates custom outdoor missions to help you touch grass.">
+  <meta property="og:title" content="GrassQuest 🌿">
+  <meta property="og:description" content="AI that gives you a mission, then gets out of your way. Powered by GPT-OSS 20B and ElevenLabs.">
+  <meta property="og:type" content="website">
+  <title>GrassQuest 🌿 | AI That Gets You Outside</title>
+  
+  <!-- Modern Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+  <!-- Ambient background glow elements -->
+  <div class="ambient-glow glow-1" aria-hidden="true"></div>
+  <div class="ambient-glow glow-2" aria-hidden="true"></div>
+
+  <!-- Main Shell -->
+  <div class="app-shell">
+    <!-- Header -->
+    <header class="app-header">
+      <div class="header-inner">
+        <a href="#" class="brand-link" id="brandHomeLink" aria-label="GrassQuest Home">
+          <span class="brand-logo">🌿</span>
+          <span class="brand-name">GrassQuest</span>
+        </a>
+
+        <div class="header-badges">
+          <span class="badge-tag hacktoberfest-tag">Hacktoberfest '26</span>
+          <button type="button" class="btn-icon" id="openHistoryBtn" title="View Recent Quests" aria-label="View Recent Quests">
+            <span class="icon">📜</span>
+            <span class="btn-text-sm">Log</span>
+          </button>
+          <button type="button" class="btn-icon" id="soundToggleBtn" title="Toggle Voice Mute" aria-label="Toggle Voice Mute">
+            <span class="icon" id="soundIcon">🔊</span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- App Views Container (5-Step Flow) -->
+    <main class="main-content" id="mainContent">
+
+      <!-- ========================================================
+           STEP 1: LANDING SCREEN
+           ======================================================== -->
+      <section class="flow-step active-step" id="stepLanding" aria-labelledby="landingTitle">
+        <div class="landing-card card-glass">
+          <div class="brand-badge-row">
+            <span class="pill-badge">Touch Grass Challenge • Week 1</span>
+          </div>
+
+          <div class="hero-icon-wrapper" aria-hidden="true">
+            <div class="hero-pulse"></div>
+            <span class="hero-emoji">🌿</span>
+          </div>
+
+          <h1 class="hero-title" id="landingTitle">GrassQuest</h1>
+          <p class="hero-tagline">“AI that gives you a mission, then gets out of your way.”</p>
+
+          <p class="hero-description">
+            Tell AI how you feel.<br>
+            Get a mission for the real world.<br>
+            Then put your phone away.
+          </p>
+
+          <div class="cta-action-group">
+            <button type="button" class="btn btn-primary btn-large glow-effect" id="startPlanningBtn">
+              <span class="btn-icon-lead">🧭</span>
+              CREATE MY QUEST
+            </button>
+          </div>
+
+          <div class="three-step-preview">
+            <div class="preview-item">
+              <div class="preview-num">1</div>
+              <div class="preview-content">
+                <strong>Pick your vibe</strong>
+                <span>Mood &amp; time budget</span>
+              </div>
+            </div>
+            <div class="preview-arrow" aria-hidden="true">→</div>
+            <div class="preview-item">
+              <div class="preview-num">2</div>
+              <div class="preview-content">
+                <strong>Open-weight AI</strong>
+                <span>GPT-OSS 20B crafts mission</span>
+              </div>
+            </div>
+            <div class="preview-arrow" aria-hidden="true">→</div>
+            <div class="preview-item">
+              <div class="preview-num">3</div>
+              <div class="preview-content">
+                <strong>Step Outside</strong>
+                <span>Pocket your phone &amp; walk</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="credibility-footer">
+            <p class="credibility-line">
+              Powered by <span class="cred-pill">GPT-OSS 20B</span> • <span class="cred-pill">ElevenLabs</span> • <span class="cred-pill">Flask</span> • <span class="cred-pill">Render</span>
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================================
+           STEP 2: QUEST SETUP SCREEN
+           ======================================================== -->
+      <section class="flow-step" id="stepSetup" aria-labelledby="setupTitle">
+        <div class="setup-container card-glass">
+          <div class="setup-header">
+            <button type="button" class="btn-text-nav" id="setupBackBtn" aria-label="Back to landing">
+              ← Back
+            </button>
+            <h2 class="step-title" id="setupTitle">Configure Your Mission</h2>
+            <p class="step-subtitle">What does your body and brain need right now?</p>
+          </div>
+
+          <form id="questSetupForm" class="setup-form" novalidate>
+            <!-- Mood Selection -->
+            <fieldset class="form-section">
+              <legend class="section-label">
+                <span class="section-icon">🧠</span> HOW ARE YOU FEELING?
+              </legend>
+              <div class="options-grid mood-grid" role="radiogroup" aria-label="Mood options">
+                <label class="option-card">
+                  <input type="radio" name="mood" value="Bored" checked>
+                  <div class="card-content">
+                    <span class="opt-emoji">🥱</span>
+                    <span class="opt-title">Bored</span>
+                  </div>
+                </label>
+                <label class="option-card">
+                  <input type="radio" name="mood" value="Stressed">
+                  <div class="card-content">
+                    <span class="opt-emoji">🤯</span>
+                    <span class="opt-title">Stressed</span>
+                  </div>
+                </label>
+                <label class="option-card">
+                  <input type="radio" name="mood" value="Low Energy">
+                  <div class="card-content">
+                    <span class="opt-emoji">🔋</span>
+                    <span class="opt-title">Low Energy</span>
+                  </div>
+                </label>
+                <label class="option-card">
+                  <input type="radio" name="mood" value="Curious">
+                  <div class="card-content">
+                    <span class="opt-emoji">🔍</span>
+                    <span class="opt-title">Curious</span>
+                  </div>
+                </label>
+                <label class="option-card">
+                  <input type="radio" name="mood" value="Energetic">
+                  <div class="card-content">
+                    <span class="opt-emoji">⚡</span>
+                    <span class="opt-title">Energetic</span>
+                  </div>
+                </label>
+                <label class="option-card">
+                  <input type="radio" name="mood" value="Social">
+                  <div class="card-content">
+                    <span class="opt-emoji">👥</span>
+                    <span class="opt-title">Social</span>
+                  </div>
+                </label>
+              </div>
+            </fieldset>
+
+            <!-- Time Selection -->
+            <fieldset class="form-section">
+              <legend class="section-label">
+                <span class="section-icon">⏱️</span> TIME BUDGET
+              </legend>
+              <div class="pills-row" role="radiogroup" aria-label="Duration options">
+                <label class="pill-card">
+                  <input type="radio" name="duration" value="10">
+                  <span class="pill-label">10 min</span>
+                </label>
+                <label class="pill-card">
+                  <input type="radio" name="duration" value="20" checked>
+                  <span class="pill-label">20 min</span>
+                </label>
+                <label class="pill-card">
+                  <input type="radio" name="duration" value="30">
+                  <span class="pill-label">30 min</span>
+                </label>
+                <label class="pill-card">
+                  <input type="radio" name="duration" value="45">
+                  <span class="pill-label">45 min</span>
+                </label>
+                <label class="pill-card">
+                  <input type="radio" name="duration" value="60">
+                  <span class="pill-label">60 min</span>
+                </label>
+              </div>
+            </fieldset>
+
+            <!-- Quest Type Selection -->
+            <fieldset class="form-section">
+              <legend class="section-label">
+                <span class="section-icon">🌲</span> QUEST TYPE
+              </legend>
+              <div class="options-grid type-grid" role="radiogroup" aria-label="Quest type options">
+                <label class="option-card">
+                  <input type="radio" name="quest_type" value="Nature">
+                  <div class="card-content">
+                    <span class="opt-emoji">🌲</span>
+                    <span class="opt-title">Nature</span>
+                  </div>
+                </label>
+                <label class="option-card">
+                  <input type="radio" name="quest_type" value="Walk">
+                  <div class="card-content">
+                    <span class="opt-emoji">🚶</span>
+                    <span class="opt-title">Walk</span>
+                  </div>
+                </label>
+                <label class="option-card">
+                  <input type="radio" name="quest_type" value="Explore" checked>
+                  <div class="card-content">
+                    <span class="opt-emoji">🧭</span>
+                    <span class="opt-title">Explore</span>
+                  </div>
+                </label>
+                <label class="option-card">
+                  <input type="radio" name="quest_type" value="Photography">
+                  <div class="card-content">
+                    <span class="opt-emoji">📷</span>
+                    <span class="opt-title">Photography</span>
+                  </div>
+                </label>
+                <label class="option-card">
+                  <input type="radio" name="quest_type" value="Social">
+                  <div class="card-content">
+                    <span class="opt-emoji">🤝</span>
+                    <span class="opt-title">Social</span>
+                  </div>
+                </label>
+                <label class="option-card surprise-option">
+                  <input type="radio" name="quest_type" value="Surprise Me">
+                  <div class="card-content">
+                    <span class="opt-emoji">✨</span>
+                    <span class="opt-title">Surprise Me</span>
+                  </div>
+                </label>
+              </div>
+            </fieldset>
+
+            <!-- Optional Location Context -->
+            <div class="form-section optional-section">
+              <label for="locationContextInput" class="section-label">
+                <span class="section-icon">📍</span> STARTING AREA (OPTIONAL)
+              </label>
+              <div class="input-with-hint">
+                <input 
+                  type="text" 
+                  id="locationContextInput" 
+                  name="location_context" 
+                  placeholder="e.g. college campus, neighborhood park, downtown"
+                  maxlength="120"
+                  class="text-input"
+                >
+                <span class="input-hint">No exact address needed. Just a general vibe of your surroundings.</span>
+              </div>
+            </div>
+
+            <!-- GPS Preference Banner -->
+            <div class="gps-notice-box" id="gpsStatusBanner">
+              <span class="gps-icon">🛰️</span>
+              <div class="gps-text">
+                <strong>Real Outdoor GPS Tracking</strong>
+                <span id="gpsStateDesc">Browser Geolocation will track distance automatically when your quest begins.</span>
+              </div>
+            </div>
+
+            <!-- Generate CTA -->
+            <div class="form-cta-row">
+              <button type="submit" class="btn btn-primary btn-large btn-full glow-effect" id="generateQuestBtn">
+                <span class="btn-icon-lead">⚡</span>
+                GENERATE MY QUEST
+              </button>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <!-- ========================================================
+           STEP 3: LOADING OVERLAY
+           ======================================================== -->
+      <section class="flow-step" id="stepLoading" aria-live="polite">
+        <div class="loading-container card-glass">
+          <div class="loading-orb">
+            <div class="orb-ring ring-1"></div>
+            <div class="orb-ring ring-2"></div>
+            <div class="orb-center">🌿</div>
+          </div>
+          <h2 class="loading-title">Summoning Outdoor Mission</h2>
+          <p class="loading-subtext" id="loadingDynamicText">Finding a reason to leave your chair…</p>
+          <div class="loading-details">
+            <span class="tech-pill">Model: GPT-OSS 20B</span>
+            <span class="tech-pill">Inference: Groq</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================================
+           STEP 4: QUEST RESULT SCREEN
+           ======================================================== -->
+      <section class="flow-step" id="stepResult" aria-labelledby="resultTitle">
+        <div class="result-container card-glass">
+          <!-- Top meta bar -->
+          <div class="quest-meta-header">
+            <div class="meta-tag-left">
+              <span class="nature-pill">🌿 GRASSQUEST</span>
+            </div>
+            <div class="meta-tag-right">
+              <span class="badge-duration" id="resultDuration">20 MIN</span>
+              <span class="badge-distance" id="resultDistance">~800 m</span>
+            </div>
+          </div>
+
+          <!-- Title and summary -->
+          <div class="quest-headline-section">
+            <h2 class="quest-card-title" id="resultTitle">Neighborhood Detective</h2>
+            <p class="quest-summary" id="resultSummary">Step outside and explore a route you normally ignore.</p>
+          </div>
+
+          <!-- Objective block -->
+          <div class="quest-block objective-block">
+            <div class="block-label">PRIMARY MISSION</div>
+            <p class="block-content" id="resultObjective">Discover three things in your surroundings that you have never paid attention to before.</p>
+          </div>
+
+          <!-- Steps checklist -->
+          <div class="quest-block steps-block">
+            <div class="block-label">FIELD OBJECTIVES</div>
+            <ul class="steps-list" id="resultStepsList">
+              <!-- Dynamically populated -->
+            </ul>
+          </div>
+
+          <!-- Bonus challenge -->
+          <div class="quest-block bonus-block">
+            <div class="block-label">✨ BONUS OBJECTIVE</div>
+            <p class="bonus-content" id="resultBonus">Take one photo of the most unusual texture you can find.</p>
+          </div>
+
+          <!-- Safety reminder -->
+          <div class="safety-banner">
+            <span class="safety-icon">🛡️</span>
+            <span class="safety-text" id="resultSafety">Stay on public pathways and be mindful of traffic.</span>
+          </div>
+
+          <!-- ElevenLabs Spoken Preview -->
+          <div class="voice-preview-card" id="voicePreviewCard">
+            <div class="voice-header-row">
+              <div class="voice-info">
+                <span class="voice-badge">🎧 ELEVENLABS AUDIO</span>
+                <span class="voice-status-indicator" id="voiceStatusText">Voice ready</span>
+              </div>
+              <button type="button" class="btn-audio-preview" id="previewVoiceBtn" aria-label="Listen to voice intro">
+                <span id="previewVoiceIcon">▶ Listen</span>
+              </button>
+            </div>
+            <p class="voice-script-quote" id="resultVoiceScript">
+              “Your GrassQuest has started. Put your phone away and start walking.”
+            </p>
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="result-actions-cluster">
+            <button type="button" class="btn btn-primary btn-large btn-start-dominant glow-effect" id="startActiveQuestBtn">
+              <span class="btn-icon-lead">🚀</span>
+              START QUEST
+            </button>
+            <div class="secondary-btn-row">
+              <button type="button" class="btn btn-secondary" id="generateAnotherBtn">
+                ↻ Another Mission
+              </button>
+              <button type="button" class="btn btn-ghost" id="backToSetupBtn">
+                Edit Parameters
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================================
+           STEP 5: REAL OUTDOOR / ACTIVE QUEST SCREEN (SCREEN-MINIMIZING)
+           ======================================================== -->
+      <section class="flow-step" id="stepActive" aria-labelledby="activeMissionName">
+        <div class="active-container card-glass">
+          <!-- Minimalist Status Banner -->
+          <div class="active-status-bar">
+            <span class="pulse-indicator"></span>
+            <span class="status-live-text">QUEST IN PROGRESS</span>
+            <span class="audio-state-tag" id="activeAudioTag">🎧 Voice: Ready</span>
+          </div>
+
+          <!-- Giant Anti-Screen Prompt -->
+          <div class="anti-screen-banner">
+            <div class="pocket-phone-icon">📱 ➔ 👖</div>
+            <h2 class="pocket-title">PUT YOUR PHONE IN YOUR POCKET</h2>
+            <p class="pocket-subtitle">“Your phone doesn't need you anymore. Start walking.”</p>
+          </div>
+
+          <!-- Countdown Timer -->
+          <div class="timer-display-card">
+            <div class="timer-countdown" id="activeTimer">20:00</div>
+            <div class="timer-label">TIME REMAINING</div>
+          </div>
+
+          <!-- Distance & GPS Telemetry -->
+          <div class="telemetry-card">
+            <div class="telemetry-row">
+              <div class="telemetry-stat">
+                <span class="stat-caption">DISTANCE COVERED</span>
+                <span class="stat-value" id="activeDistanceVal">0.00 km</span>
+              </div>
+              <div class="telemetry-divider">/</div>
+              <div class="telemetry-stat">
+                <span class="stat-caption">TARGET GOAL</span>
+                <span class="stat-value" id="activeTargetVal">0.80 km</span>
+              </div>
+            </div>
+
+            <!-- Progress Bar -->
+            <div class="progress-track" aria-label="Distance progress">
+              <div class="progress-fill" id="activeProgressFill" style="width: 0%;"></div>
+            </div>
+            <div class="progress-footer">
+              <span id="activeProgressPct">0% of target distance</span>
+              <span class="gps-accuracy-label" id="activeGpsAccuracy">🛰️ GPS tracking active</span>
+            </div>
+          </div>
+
+          <!-- Brief Mission Reminder -->
+          <div class="active-mission-card">
+            <h3 class="active-mission-title" id="activeMissionName">Neighborhood Detective</h3>
+            <p class="active-mission-summary" id="activeMissionBrief">Walk outside and discover three things you normally overlook.</p>
+          </div>
+
+          <!-- Active Controls -->
+          <div class="active-actions-row">
+            <button type="button" class="btn btn-secondary" id="replayVoiceActiveBtn" title="Replay voice guidance">
+              🔊 Hear Voice
+            </button>
+            <button type="button" class="btn btn-ghost" id="pauseActiveBtn">
+              ⏸ Pause
+            </button>
+            <button type="button" class="btn btn-primary" id="completeQuestBtn">
+              ✓ Complete Quest
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================================
+           STEP 6: QUEST COMPLETE SCREEN
+           ======================================================== -->
+      <section class="flow-step" id="stepComplete" aria-labelledby="completeHeading">
+        <div class="complete-container card-glass">
+          <!-- Canvas for celebratory ambient particle burst -->
+          <canvas id="confettiCanvas" class="confetti-canvas" aria-hidden="true"></canvas>
+
+          <div class="complete-trophy-badge">🌿</div>
+          <span class="celebration-pill">MISSION ACCOMPLISHED</span>
+          <h2 class="complete-heading" id="completeHeading">YOU TOUCHED GRASS.</h2>
+          <p class="complete-subtext">You successfully escaped the screen and explored the physical world.</p>
+
+          <!-- Completed Quest Stats -->
+          <div class="stats-summary-card">
+            <div class="stats-quest-name" id="completeQuestTitle">Neighborhood Detective</div>
+            <div class="stats-grid">
+              <div class="stat-box">
+                <span class="stat-big-num" id="completeTimeSpent">20 min</span>
+                <span class="stat-box-label">Time Outside</span>
+              </div>
+              <div class="stat-box">
+                <span class="stat-big-num" id="completeDistanceWalked">0.85 km</span>
+                <span class="stat-box-label">Distance Walked</span>
+              </div>
+              <div class="stat-box">
+                <span class="stat-big-num" id="completeStepCount">1</span>
+                <span class="stat-box-label">Mission Done</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Action buttons -->
+          <div class="complete-actions-cluster">
+            <button type="button" class="btn btn-primary btn-large glow-effect" id="shareQuestBtn">
+              <span class="btn-icon-lead">📢</span>
+              SHARE MY QUEST
+            </button>
+            <div class="secondary-btn-row">
+              <button type="button" class="btn btn-secondary" id="createAnotherQuestBtn">
+                + New Quest
+              </button>
+              <button type="button" class="btn btn-ghost" id="goHomeBtn">
+                Home
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Recent Quests Drawer / Modal -->
+    <aside class="history-drawer" id="historyDrawer" aria-hidden="true">
+      <div class="drawer-header">
+        <h3 class="drawer-title">📜 Quest Log</h3>
+        <button type="button" class="btn-close" id="closeHistoryBtn" aria-label="Close Quest Log">✕</button>
+      </div>
+      <div class="drawer-body" id="historyList">
+        <div class="empty-history">
+          <span class="empty-icon">🌱</span>
+          <p>No quests logged yet.<br>Complete your first mission to touch grass!</p>
+        </div>
+      </div>
+      <div class="drawer-footer">
+        <button type="button" class="btn btn-ghost btn-sm" id="clearHistoryBtn">Clear Local History</button>
+      </div>
+    </aside>
+    <div class="drawer-overlay" id="drawerOverlay" aria-hidden="true"></div>
+
+    <!-- Toast Notification -->
+    <div class="toast-container" id="toastContainer" role="status" aria-live="polite"></div>
+
+    <!-- Hidden audio element for voice guidance -->
+    <audio id="globalAudioPlayer" preload="auto" playsinline></audio>
+
+    <!-- Footer -->
+    <footer class="app-footer">
+      <p class="footer-copy">
+        GrassQuest • Built for <strong>Hacktoberfest 2026</strong> Week 1 “Touch Grass” Challenge.<br>
+        Open-weight intelligence by <strong>GPT-OSS 20B</strong> on <strong>Groq</strong> • Spoken by <strong>ElevenLabs</strong>.
+      </p>
+    </footer>
+  </div>
+
+  <!-- JavaScript Modules -->
+  <script src="/static/js/gps.js"></script>
+  <script src="/static/js/quest.js"></script>
+  <script src="/static/js/app.js"></script>
+</body>
+</html>
