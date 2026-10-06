@@ -1,3 +1,4 @@
+# pyright: reportMissingImports=false
 """Groq service integration for open-weight AI (GPT-OSS 20B) quest generation."""
 
 import json
@@ -6,7 +7,7 @@ import os
 from typing import Any, Dict
 
 try:
-    from groq import Groq
+    from groq import Groq  # type: ignore
 except ImportError:
     Groq = None  # type: ignore
 
