@@ -5,7 +5,10 @@ import logging
 import os
 from typing import Any, Dict
 
-from groq import Groq
+try:
+    from groq import Groq
+except ImportError:
+    Groq = None  # type: ignore
 
 from utils.prompts import SYSTEM_PROMPT, build_quest_prompt, build_retry_prompt
 from utils.validation import clean_json_string, validate_quest_json
@@ -30,8 +33,12 @@ def get_groq_model() -> str:
     return os.getenv("GROQ_MODEL", DEFAULT_MODEL).strip() or DEFAULT_MODEL
 
 
-def get_groq_client() -> Groq:
+def get_groq_client():
     """Instantiate and return a Groq client if the API key is present."""
+    if Groq is None:
+        raise QuestGenerationError(
+            "The 'groq' package is not installed. Please run 'pip install groq'."
+        )
     api_key = os.getenv("GROQ_API_KEY", "").strip()
     if not api_key:
         raise MissingApiKeyError(
