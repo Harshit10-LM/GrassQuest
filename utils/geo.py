@@ -27,5 +27,5 @@ def haversine_distance(lat1: float, lon1: float, lat2: float, lon2: float) -> fl
 def format_distance(meters: float) -> str:
     """Format distance into human-friendly string (meters or kilometers)."""
     if meters < 1000:
-        return f"{int(round(meters))} m"
+        return f"{round(meters)} m"
     return f"{meters / 1000.0:.2f} km"
